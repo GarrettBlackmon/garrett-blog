@@ -68,12 +68,9 @@ module.exports = {
   generate: {
     routes: async function () {
       const api = await Prismic.getApi(PrismicConfig.apiEndpoint)
-      //console.log(api)
       const blogPosts = await api.query(
-        Prismic.Predicates.at("document.type", "post"),
-        { orderings: '[my.post.date desc]' }
+        Prismic.Predicates.at("document.type", "post")
       )
-      //console.log(blogPosts.results)
       return blogPosts.results.map(element => {
         return '/blog/' + element.uid
       });
