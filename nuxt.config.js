@@ -1,4 +1,5 @@
 const pkg = require('./package')
+import Prismic from "prismic-javascript"
 const PrismicConfig = require('./prismic.config')
 
 module.exports = {
@@ -62,5 +63,21 @@ module.exports = {
     extend(config, ctx) {
       config.resolve.alias['vue'] = 'vue/dist/vue.common'
     }
+  },
+
+  generate: {
+    routes: async function () {
+      const api = await Prismic.getApi(PrismicConfig.apiEndpoint)
+      //console.log(api)
+      const blogPosts = await api.query(
+        Prismic.Predicates.at("document.type", "post"),
+        { orderings: '[my.post.date desc]' }
+      )
+      //console.log(blogPosts.results)
+      return blogPosts.results.map(element => {
+        return '/blog/' + element.uid
+      });
+    }
   }
+
 }
