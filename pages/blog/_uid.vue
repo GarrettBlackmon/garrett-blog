@@ -2,7 +2,7 @@
   <div :data-wio-id="documentId">
     <div class="outer-container">
       <div class="back">
-        <nuxt-link to="/">back to list</nuxt-link>
+        <nuxt-link to="../">back to list</nuxt-link>
       </div>
       <!-- Button to edit document in dashboard -->
       <prismic-edit-button :documentId="documentId"/>
